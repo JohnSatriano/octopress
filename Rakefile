@@ -55,9 +55,17 @@ end
 # Working with Jekyll #
 #######################
 
+desc "Pull the synesthesia lyric pages from S3 (kept out of git; they contain song lyrics)"
+task :synesthesia do
+  dest = "#{source_dir}/synesthesia"
+  puts "## Syncing s3://#{s3_bucket}/synesthesia -> #{dest}"
+  ok_failed system("aws s3 sync s3://#{s3_bucket}/synesthesia #{dest}")
+end
+
 desc "Generate jekyll site"
 task :generate do
   raise "### You haven't set anything up yet. First run `rake install` to set up an Octopress theme." unless File.directory?(source_dir)
+  Rake::Task[:synesthesia].invoke unless File.directory?("#{source_dir}/synesthesia")
   puts "## Generating Site with Jekyll"
   system "compass compile --css-dir #{source_dir}/stylesheets"
   system "jekyll build"
@@ -228,6 +236,13 @@ task :deploy do
 
   Rake::Task[:copydot].invoke(source_dir, public_dir)
   Rake::Task["#{deploy_default}"].execute
+end
+
+desc "Deploy website to S3"
+task :s3 do
+  puts "## Deploying website to s3://#{s3_bucket}"
+  # No --delete: files that exist only in the bucket are left alone.
+  ok_failed system("aws s3 sync #{public_dir}/ s3://#{s3_bucket}/")
 end
 
 desc "Generate website and deploy"
