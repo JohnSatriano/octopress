@@ -15,7 +15,7 @@ categories:  music programming javascript software theory random number generato
 
 Game devs continue to improve techniques of random content generation. Random numbers allow them to multiply the creative potential of their works. One of the most popular examples of random numbers powering content generation is [Minecraft](http://minecraft.org). Minecraft creates an entirely new world when a player starts a new game. While algorithms guide the creation of their world, **each and every player's world is unique.** Minecraft systematically generates a wonderful hodgepodge of forests, oceans, deserts, tundra, caves, enemies, and treasures that are unique to each and every player. This trend has taken off and provided humanity with some of the world's best gaming experiences.
 
-![A thing of beauty. Source: http://topminecraftworldseeds.com/](http://topminecraftworldseeds.com/wp-content/uploads/2014/10/1.8-minecraft-seed-triple-crater-caverns-1.jpg)
+![A thing of beauty. Source: http://topminecraftworldseeds.com/](http://i.imgur.com/Ty09gMP.jpg)
 
 #Randomly Generated Music 
 
