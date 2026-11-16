@@ -13,6 +13,7 @@ require "stringex"
 #S3 Config
 deploy_default = "s3"
 s3_bucket = "jsat.io"
+cloudfront_distribution_id = "E2SR2AMALRN6UE"  # serves https://jsat.io
 
 # This will be configured for you when you run config_deploy
 deploy_branch  = "gh-pages"
@@ -243,6 +244,8 @@ task :s3 do
   puts "## Deploying website to s3://#{s3_bucket}"
   # No --delete: files that exist only in the bucket are left alone.
   ok_failed system("aws s3 sync #{public_dir}/ s3://#{s3_bucket}/")
+  puts "## Invalidating CloudFront cache (#{cloudfront_distribution_id})"
+  ok_failed system("aws cloudfront create-invalidation --distribution-id #{cloudfront_distribution_id} --paths '/*'")
 end
 
 desc "Generate website and deploy"
